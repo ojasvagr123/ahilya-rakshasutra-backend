@@ -11,6 +11,7 @@ from .db import init_db
 from app.routers.auth import router as auth_router
 from app.routers.reports import router as reports_router
 from app.routers.admin import router as admin_router
+from .routers import honeypot as honeypot_router
 
 app = FastAPI(title="Ahilya RakshaSutra API", version="0.1")
 
@@ -28,7 +29,10 @@ def on_startup():
 app.include_router(auth_router)
 app.include_router(reports_router)
 app.include_router(admin_router)
+app.include_router(honeypot_router.router)
 
 @app.get("/health")
 def health():
     return {"ok": True}
+
+

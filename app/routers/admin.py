@@ -53,3 +53,8 @@ def list_reports(
             "created_at": r.created_at.isoformat()
         } for r in rows
     ]
+
+@router.get("/honeypot")
+def list_honeypot(limit: int = 200, session: Session = Depends(get_session), _admin=Depends(get_current_admin)):
+    rows = session.exec(select(HoneypotEvent).order_by(HoneypotEvent.created_at.desc()).limit(limit)).all()
+    return [{"id": e.id, "ip": e.ip, "user_agent": e.user_agent, "path": e.path, "area": e.area, "created_at": e.created_at.isoformat()} for e in rows]

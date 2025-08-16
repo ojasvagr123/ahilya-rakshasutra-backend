@@ -32,9 +32,9 @@ class Report(SQLModel, table=True):
 class HoneypotEvent(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     ip: str
-    ua: str
+    user_agent: Optional[str] = None
     path: str
-    area: str = Field(default="Unknown")
+    area: Optional[str] = "Unknown"
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class ModelResult(SQLModel, table=True):
